@@ -1,11 +1,13 @@
 header {
-    background-color: rgb(19, 19, 68);
+    background-color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 64px;
     color: #fff;
     padding: 0 32px;
+    color: #000;
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
 }
 
 header .logo-container {
@@ -21,7 +23,7 @@ header ul {
 }
 
 header a {
-    color: #fff;
+    color: #000;
     text-decoration: none;
 }
 
