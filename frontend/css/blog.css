@@ -1,0 +1,29 @@
+main {
+    padding: 0 30px;
+}
+
+main * {
+    margin: 0;
+}
+
+h2 {
+    margin: 20px 0;
+}
+
+article img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+
+article .container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+article .container div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
