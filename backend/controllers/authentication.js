@@ -7,7 +7,7 @@ const userTypeModel = new UserTypeModel();
 const userModel = new UserModel();
 
 const register = asyncHandler(async (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
+    const { lastName, firstName, email, password } = req.body;
 
     if (!firstName)
         throw new Error('The firstName is missing from the request body!');
@@ -33,7 +33,7 @@ const register = asyncHandler(async (req, res) => {
 
     await userModel.insert(firstName, lastName, email, hashedPassword, userTypeId);
 
-    res.json({ message: 'You registered successfully!', severity: 'info' })
+    res.json({ message: 'You registered successfully!', severity: 'success' })
 })
 
 module.exports = { register };
