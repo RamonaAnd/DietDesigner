@@ -31,9 +31,27 @@ const register = asyncHandler(async (req, res) => {
 
     const userTypeId = await userTypeModel.selectOneIdByName('customer');
 
-    await userModel.insert(firstName, lastName, email, hashedPassword, userTypeId);
+    await userModel.insert([firstName, lastName, email, hashedPassword, userTypeId]);
 
     res.json({ message: 'You registered successfully!', severity: 'success' })
 })
 
-module.exports = { register };
+const login = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email)
+        throw new Error('The email is missing from the request body!');
+
+    if (!password)
+        throw new Error('The password is missing from the request body!');
+
+    const user = await userModel.selectOneByEmail(email);
+
+    if (!user)
+        throw new Error('You need to register first!');
+
+    res.json({ message: 'You logged in successfully!', severity: 'success', user: user })
+})
+
+
+module.exports = { register, login };

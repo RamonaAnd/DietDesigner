@@ -3,32 +3,15 @@ const form = document.querySelector('form');
 form.addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const lastName = event.target.lastname.value;
-    const firstName = event.target.firstname.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
-    const confirmPassword = event.target.confirmPassword.value;
-
-    if(password.length < 6)
-    {
-        alertify.error('Password must to have at least 6 characters!');
-        return;
-    }
-
-    if(password != confirmPassword)
-    {
-        alertify.error('Passwords are not the same!');
-        return;
-    }
 
     const requestData = {
-        lastName: lastName,
-        firstName: firstName,
         email: email,
         password: password
     };
 
-    const response = await fetch('http://localhost:5000/auth/register', {
+    const response = await fetch('http://localhost:5000/auth/login', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -45,7 +28,8 @@ form.addEventListener('submit', async function(event) {
     else
     {
         alertify.success(responseData.message);
+        localStorage.setItem('user', JSON.stringify(responseData.user));
         form.reset();
-        setInterval(() => {window.location.assign('/templates/login.html');}, 3000);
+        setInterval(() => {window.location.assign('/templates/home.html');}, 3000);
     }
 });
