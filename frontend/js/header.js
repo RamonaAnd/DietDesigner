@@ -41,7 +41,7 @@ const getHeaderHTML = () => {
                     <a href="./recipes.html">Recipes</a>
                 </li>
                 <li>
-                    <a href="./blog.html">Blog</a>
+                    <a href="./blog/blog.html">Blog</a>
                 </li>
                 <li>
                     <a href="./forum.html">Forum</a>
