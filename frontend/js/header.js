@@ -16,10 +16,10 @@ const getButtonsHTML = () => {
     else
     {
         return `
-            <a href="./register.html">
+            <a href="/frontend/templates/register.html">
                 <span>Register</span>
             </a>
-            <a href="./login.html">
+            <a href="/frontend/templates/login.html">
                 <span>Login</span>
             </a>
         `
@@ -38,13 +38,13 @@ const getHeaderHTML = () => {
         <nav>
             <ul>
                 <li>
-                    <a href="./recipes.html">Recipes</a>
+                    <a href="/frontend/templates/recipes.html">Recipes</a>
                 </li>
                 <li>
-                    <a href="./blog/blog.html">Blog</a>
+                    <a href="/frontend/templates/blog.html">Blog</a>
                 </li>
                 <li>
-                    <a href="./forum.html">Forum</a>
+                    <a href="/frontend/templates/forum.html">Forum</a>
                 </li>
             </ul>
         </nav>
@@ -64,7 +64,7 @@ const addLogoutFunctionality = () => {
         logoutButton.addEventListener('click', function() {
             localStorage.removeItem('user');
             alertify.success('You logged out successfully');
-            setInterval(() => {window.location.assign('/templates/login.html');}, 3000);
+            setInterval(() => {window.location.assign('/frontend/templates/blog.html');}, 3000);
         });
     }
 }
