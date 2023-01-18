@@ -1,0 +1,44 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(207, 190, 190);
+    gap: 20px;
+    height: 200px;
+}
+
+.creatorsContainer {
+    display: flex;
+    width: 100%;
+}
+
+.detailsContainer {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% / 3);
+    gap: 5px;
+}
+
+.detailsContainer .nameWrapper,
+.detailsContainer .emailWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.detailsContainer .name,
+.detailsContainer .email,
+.copyright-text {
+    text-align: center;
+}
+
+.detailsContainer .imageWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detailsContainer .imageWrapper img {
+    width: 70px;
+    height: 80px;
+}

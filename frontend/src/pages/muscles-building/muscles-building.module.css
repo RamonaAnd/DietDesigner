@@ -1,0 +1,8 @@
+.main {
+    height: calc(100vh - 64px - 200px);
+    padding: 20px 30px;
+}
+
+.title {
+    margin: 0;
+}

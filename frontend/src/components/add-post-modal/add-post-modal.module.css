@@ -1,0 +1,38 @@
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 400px;
+    background-color: #fff;
+    padding: 10px 30px 30px;
+}
+
+.title {
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.contentTextField{
+    width: 100%;
+}
+
+.addPostButton {
+    background: none;
+    padding: 10px 20px;
+    border: 1px solid #000;
+    margin-top: 20px;
+}
+
+.addPostButton:hover {
+    cursor: pointer;
+    opacity: .7;
+}
