@@ -1,6 +1,11 @@
+import caloriesImage from './../../images/calories.png';
+import styles from './calories.module.css';
+
 function Calories() {
     return (
-        <div>Calories</div>
+        <main className={styles.main}>
+            <img src={caloriesImage} alt={'Calories'}/>
+        </main>
     )
 }
 

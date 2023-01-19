@@ -10,11 +10,11 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/static', express.static(path.join(__dirname, 'public')));
+app.use('/static', express.static(path.join(__dirname, 'src/public')));
 
 mongoose.set('strictQuery', false);
 
-const uri = process.env.ATLAS_URI_ALIN;
+const uri = process.env.ATLAS_URI;
 mongoose.connect(uri);
 
 const connection = mongoose.connection;

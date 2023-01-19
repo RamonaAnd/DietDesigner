@@ -12,13 +12,24 @@ function Header() {
             <nav>
                 <ul>
                     <li>
-                        <a href="/recipes">Recipes</a>
+                        <Link to={'/recipes'}>
+                            Recipes
+                        </Link>
                     </li>
                     <li>
-                        <a href="/blog">Blog</a>
+                        <Link to={'/blog'}>
+                            Blog
+                        </Link>
                     </li>
                     <li>
-                        <a href="/forum">Forum</a>
+                        <Link to={'/forum'}>
+                            Forum
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={'/calories'}>
+                            Calories
+                        </Link>
                     </li>
                 </ul>
             </nav>

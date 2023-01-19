@@ -1,4 +1,4 @@
-import styles from './diabetis.module.css';
+import styles from './diabetis-diet.module.css';
 
 function Diabetis() {
     return (

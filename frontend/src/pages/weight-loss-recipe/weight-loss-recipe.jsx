@@ -1,4 +1,4 @@
-import styles from './weight-loss.module.css';
+import styles from './weight-loss-recipe.module.css';
 
 function WeightLoss() {
     return (

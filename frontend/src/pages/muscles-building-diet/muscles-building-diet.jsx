@@ -1,4 +1,4 @@
-import styles from './muscles-building.module.css';
+import styles from './muscles-building-diet.module.css';
 
 function MusclesBuilding() {
     return (

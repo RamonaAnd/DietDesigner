@@ -3,24 +3,24 @@ const asyncHandler = require('express-async-handler')
 const Post = require('../models/post');
 
 const create = asyncHandler(async (req, res) => {
+    const imageFile = req.file;
     const { content } = req.body;
 
+    if (!imageFile)
+        throw new Error('There was a problem when saving the image file!')
+
     if (!content)
-        throw new Error('Campul content lipseste din corpul cererii!');
+        throw new Error('Field content it\'s missing from request body!');
 
-    // const user = await Post.findOne({ email });
+    const newPost = new Post({ imageUri: imageFile.filename, content });
 
-    // if (user)
-    //     throw new Error('Email-ul este deja folosit de alt utilizator!');
-  
-    // const hashedPassword = await generatePasswordHash(password);
+    await newPost.save();
 
-    // const newUser = new User({lastName, firstName, email, password: hashedPassword });
-
-    // await newUser.save();
-
-    // res.json({message: `Utilizatorul ${lastName} ${firstName} a fost creat cu succes!`})
-    res.json({ok: 'ok'})
+    res.json({
+        message: `The post was created successfully!`,
+        severity: 'success',
+        post: newPost
+    })
 })
 
 const readAll = asyncHandler(async (_req, res) => {
