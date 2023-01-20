@@ -7,8 +7,6 @@ function Blog() {
     const [openModal, setOpenModal] = useState(false);
     const [posts, setPosts] = useState([]);
 
-    console.log(posts);
-
     const handleClickAddPost = () => {
         setOpenModal(true);
     }

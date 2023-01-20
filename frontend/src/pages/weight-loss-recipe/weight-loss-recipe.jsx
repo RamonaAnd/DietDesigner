@@ -3,6 +3,7 @@ import styles from './weight-loss-recipe.module.css';
 function WeightLoss() {
     return (
         <main className={styles.main}>
+            
             <section>
                 <div>
                     <h2>

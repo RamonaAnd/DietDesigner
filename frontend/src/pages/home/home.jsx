@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import musclesBuildingImage from './../../images/muscles-building.jpg';
-import weightLossImage from './../../images/weight-loss.png';
-import diabetesImage from './../../images/diabetes.png';
+import musclesBuildingImage from './../../images/muscles-building-diet.jpg';
+import weightLossImage from './../../images/weight-loss-diet.png';
+import diabetesImage from './../../images/diabetes-diet.png';
 import styles from './home.module.css';
 
 function Home() {

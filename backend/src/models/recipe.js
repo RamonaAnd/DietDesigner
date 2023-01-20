@@ -22,7 +22,7 @@ const recipeSchema = new Schema(
             }
         ],
         cookTime: {
-            type: Date,
+            type: Number,
             required: true
         },
         recipeCategory: {

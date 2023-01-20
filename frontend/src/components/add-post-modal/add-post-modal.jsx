@@ -52,8 +52,6 @@ function AddPostModal(props) {
         <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
             className={styles.modal}
         >
             <div className={styles.container}>
