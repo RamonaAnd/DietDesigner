@@ -1,10 +1,10 @@
 import { Modal, IconButton, TextField, MenuItem, FormControl, InputLabel, Select } from '@mui/material';
-import { Add, PhotoCamera, PlusOne } from '@mui/icons-material'
+import { Add, PhotoCamera } from '@mui/icons-material'
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import styles from './add-recipe-modal.module.css';
-import { useState } from 'react';
 
-function AddPostModal(props) {
+function AddRecipeModal(props) {
     const { open, handleClose, setPosts } = props;
     const [name, setName] = useState('');
     const [ingredient, setIngredient] = useState('');
@@ -20,9 +20,15 @@ function AddPostModal(props) {
     
     const handleChangeInstruction = (event) => setInstruction(event.target.value);
     
-    const handleAddIngredient = () => setIngredients(currentIngredients => [...currentIngredients, ingredient]);
+    const handleAddIngredient = () => {
+        setIngredient('');
+        setIngredients(currentIngredients => [...currentIngredients, ingredient]);
+    }
     
-    const handleAddInstruction = () => setInstructions(currentInstructions => [...currentInstructions, instruction]);
+    const handleAddInstruction = () => {
+        setInstruction('');
+        setInstructions(currentInstructions => [...currentInstructions, instruction]);
+    }
 
     const handleChangeCookTime = (event) => setCookTime(event.target.value);
 
@@ -33,39 +39,44 @@ function AddPostModal(props) {
 
         const requestPayload = new FormData(event.currentTarget);
 
-        const response = await fetch('/api/posts', {
-            method: 'POST',
-            body: requestPayload
-        });
+        requestPayload.append('ingredients', ingredients);
+        requestPayload.append('instructions', instructions);
 
-        const responsePayload = await response.json();
+        console.log(requestPayload);
 
-        if (response.status >= 200 && response.status < 300) {
-            toast.success(responsePayload.message, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            setPosts(currentPosts => [...currentPosts, responsePayload.post]);
-            handleClose();
-        }
-        else {
-            toast.error(responsePayload.error, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }
+        // const response = await fetch('/api/posts', {
+        //     method: 'POST',
+        //     body: requestPayload
+        // });
+
+        // const responsePayload = await response.json();
+
+        // if (response.status >= 200 && response.status < 300) {
+        //     toast.success(responsePayload.message, {
+        //         position: "top-right",
+        //         autoClose: 5000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //         theme: "light",
+        //     });
+        //     setPosts(currentPosts => [...currentPosts, responsePayload.post]);
+        //     handleClose();
+        // }
+        // else {
+        //     toast.error(responsePayload.error, {
+        //         position: "top-right",
+        //         autoClose: 5000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //         theme: "light",
+        //     });
+        // }
     }
 
     return (
@@ -91,6 +102,7 @@ function AddPostModal(props) {
                         size='small'
                         className={styles.textField}
                         onChange={handleChangeName}
+                        name='name'
                     />
                     <FormControl fullWidth className={styles.ingredientFormControl}>
                         <TextField
@@ -98,15 +110,16 @@ function AddPostModal(props) {
                             label='Ingredient'
                             size='small'
                             className={styles.textField}
+                            value={ingredient}
                             onChange={handleChangeIngredient}
                         />
-                        <Add className={styles.icon} />
+                        <Add onClick={handleAddIngredient} className={styles.icon} />
                     </FormControl>
                     {
                         ingredients.length > 0 ?
-                            <ol>
+                            <ol className={styles.listIngredients}>
                                 {
-                                    ingredients.map((ingredient) => <li>{ingredient}</li>)
+                                    ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)
                                 }
                             </ol>
                             : null
@@ -117,15 +130,16 @@ function AddPostModal(props) {
                             label='Instruction'
                             size='small'
                             className={styles.textField}
+                            value={instruction}
                             onChange={handleChangeInstruction}
                         />
-                        <Add className={styles.icon} />
+                        <Add onClick={handleAddInstruction} className={styles.icon} />
                     </FormControl>
                     {
                         instructions.length > 0 ?
-                            <ol>
+                            <ol className={styles.listInstructions}>
                                 {
-                                    instructions.map((instruction) => <li>{instruction}</li>)
+                                    instructions.map((instruction, index) => <li key={index}>{instruction}</li>)
                                 }
                             </ol>
                             : null
@@ -137,17 +151,20 @@ function AddPostModal(props) {
                         type='number'
                         defaultValue={1}
                         className={styles.textField}
+                        onChange={handleChangeCookTime}
+                        name='cook-time'
                     />
                     <FormControl fullWidth>
-                        <InputLabel id="category-select-label">Recipe category</InputLabel>
+                        <InputLabel id="category-label">Recipe category</InputLabel>
                         <Select
-                            labelId="category-select-label"
-                            id="category-select"
+                            labelId="category-label"
+                            id="category"
                             value={category}
                             label="Recipe category"
                             onChange={handleChangeRecipeCategory}
                             className={styles.select}
                             size="small"
+                            name='category'
                         >
                             <MenuItem value={'Weight loss recipes'}>Weight loss recipes</MenuItem>
                             <MenuItem value={'Muscles building recipes'}>Muscles building recipes</MenuItem>
@@ -155,7 +172,7 @@ function AddPostModal(props) {
                         </Select>
                     </FormControl>
                     <button type='submit' className={styles.addPostButton}>
-                        Add post
+                        Add recipe
                     </button>
                 </form>
             </div>
@@ -163,4 +180,4 @@ function AddPostModal(props) {
     )
 }
 
-export default AddPostModal;
+export default AddRecipeModal;

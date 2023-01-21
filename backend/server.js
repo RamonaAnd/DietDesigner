@@ -22,9 +22,11 @@ connection.once('open', () => console.log("MongoDB database connection establish
 
 const generatorsRouter = require('./src/routes/generators');
 const authenticationRouter = require('./src/routes/authentication');
+const recipesRouter = require('./src/routes/recipes');
 const postsRouter = require('./src/routes/posts');
 
 app.use('/api/generate', generatorsRouter);
+app.use('/api/recipes', recipesRouter);
 app.use('/api/posts', postsRouter);
 app.use('/auth', authenticationRouter);
 
