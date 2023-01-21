@@ -1,6 +1,7 @@
-import styles from './diabetis-diet.module.css';
+import { Link } from 'react-router-dom';
+import styles from './diabetes-diet.module.css';
 
-function Diabetis() {
+function Diabetes() {
     return (
         <main className={styles.main}>
             <section>
@@ -40,9 +41,12 @@ function Diabetis() {
                     For most people with type 2 diabetes, weight loss also can make it easier to control blood glucose and offers a host of other
                     health benefits. If you need to lose weight, a diabetes diet provides a well-organized, nutritious way to reach your goal safely.
                 </p>
+                <Link to={'/diabetes-recipes'}>
+                    Go to recipes
+                </Link>
             </section>
         </main>
     )
 }
 
-export default Diabetis;
+export default Diabetes;

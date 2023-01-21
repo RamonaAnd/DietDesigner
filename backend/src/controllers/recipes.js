@@ -1,9 +1,14 @@
 const asyncHandler = require('express-async-handler')
 const Recipe = require('../models/recipe');
+const RecipeCategory = require('../models/recipe-category');
+const { titleCase } = require('../utils/string');
 
 const create = asyncHandler(async (req, res) => {
     const imageFile = req.file;
     const { name, ingredients, instructions, cookTime, category } = req.body;
+
+    console.log(imageFile);
+    console.log(req.body);
 
     if (!imageFile)
         throw new Error('There was a problem when saving the image file!')
@@ -23,19 +28,29 @@ const create = asyncHandler(async (req, res) => {
     if (!category)
         throw new Error('Field category it\'s missing from request body!');
 
-    console.log(name);
-    console.log(ingredients);
-    console.log(instructions);
-    console.log(cookTime);
-    console.log(category);
+    let recipeCategory = await RecipeCategory.findOne({name: category});
 
-    // const newPost = new Post({ imageUri: imageFile.filename, content });
+    if(!recipeCategory)
+    {
+        recipeCategory = new RecipeCategory({name: category});
+        await recipeCategory.save();
+    }
 
-    // await newPost.save();
+    const newRecipe = new Recipe({ 
+        name: name,  
+        imageUri: imageFile.filename, 
+        ingredients: ingredients.split(','),
+        instructions: instructions,
+        cookTime: cookTime,
+        category: recipeCategory._id
+    });
+
+    await newRecipe.save();
 
     res.json({
         message: `The recipe was created successfully!`,
-        severity: 'success'
+        severity: 'success',
+        recipe: newRecipe
     })
 })
 
@@ -43,4 +58,15 @@ const readAll = asyncHandler(async (_req, res) => {
     res.json(await Recipe.find({}, { __v: 0 }));
 })
 
-module.exports = { create, readAll };
+const readByCategory = asyncHandler(async (req, res) => {
+    const {category} = req.params;
+
+    const recipeCategory = await RecipeCategory.findOne({name: titleCase(category)});
+
+    const recipes = await Recipe.find({category: recipeCategory._id}, { __v: 0 });
+
+    res.json(recipes);
+})
+
+
+module.exports = { create, readAll, readByCategory };

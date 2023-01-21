@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './weight-loss-diet.module.css';
 
 function WeightLoss() {
@@ -61,6 +62,9 @@ function WeightLoss() {
                     <p>While it's not a weight loss diet, studies show that it can promote weight loss and overall health.
                     </p>
                 </div>
+                <Link to={'/weight-loss-recipes'}>
+                    Go to recipes
+                </Link>
             </section>
         </main>
     )

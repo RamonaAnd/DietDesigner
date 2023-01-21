@@ -7,4 +7,9 @@ const split = (string, separator, index) => {
     return stringSplitted[stringSplitted.length + index];
 }
 
-module.exports = { split }
+const titleCase = (string) => {
+    string = string.replace(/-/g," ");
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+module.exports = { split, titleCase }

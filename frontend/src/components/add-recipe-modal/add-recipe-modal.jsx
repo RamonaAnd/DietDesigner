@@ -5,78 +5,63 @@ import { toast } from 'react-toastify';
 import styles from './add-recipe-modal.module.css';
 
 function AddRecipeModal(props) {
-    const { open, handleClose, setPosts } = props;
-    const [name, setName] = useState('');
+    const { open, handleClose } = props;
     const [ingredient, setIngredient] = useState('');
-    const [instruction, setInstruction] = useState('');
     const [ingredients, setIngredients] = useState([]);
-    const [instructions, setInstructions] = useState([]);
-    const [cookTime, setCookTime] = useState(0);
     const [category, setCategory] = useState('Weight loss recipes');
 
-    const handleChangeName = (event) => setName(event.target.value);
-    
+    const handleChangeCategory = (event) => setCategory(event.target.value);
+
     const handleChangeIngredient = (event) => setIngredient(event.target.value);
-    
-    const handleChangeInstruction = (event) => setInstruction(event.target.value);
-    
+
     const handleAddIngredient = () => {
         setIngredient('');
         setIngredients(currentIngredients => [...currentIngredients, ingredient]);
     }
-    
-    const handleAddInstruction = () => {
-        setInstruction('');
-        setInstructions(currentInstructions => [...currentInstructions, instruction]);
-    }
-
-    const handleChangeCookTime = (event) => setCookTime(event.target.value);
-
-    const handleChangeRecipeCategory = (event) => setCategory(event.target.value);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
         const requestPayload = new FormData(event.currentTarget);
-
         requestPayload.append('ingredients', ingredients);
-        requestPayload.append('instructions', instructions);
 
-        console.log(requestPayload);
+        // HERE I MAKE THE CONNECTION BETWEEN FRONTEND AND BACKEND
+        // FRONTEND SEND A REQUEST TO THE /api/recipes ENPOINT WITH RECIPE DATA
+        // BACKEND WILL CHECK THE DATA AND AFTER THAT WILL SAVE THEM IN THE DATABASE
+        const response = await fetch('/api/recipes', {
+            method: 'POST',
+            body: requestPayload
+        });
 
-        // const response = await fetch('/api/posts', {
-        //     method: 'POST',
-        //     body: requestPayload
-        // });
+        const responsePayload = await response.json();
 
-        // const responsePayload = await response.json();
-
-        // if (response.status >= 200 && response.status < 300) {
-        //     toast.success(responsePayload.message, {
-        //         position: "top-right",
-        //         autoClose: 5000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined,
-        //         theme: "light",
-        //     });
-        //     setPosts(currentPosts => [...currentPosts, responsePayload.post]);
-        //     handleClose();
-        // }
-        // else {
-        //     toast.error(responsePayload.error, {
-        //         position: "top-right",
-        //         autoClose: 5000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined,
-        //         theme: "light",
-        //     });
-        // }
+        if (response.status >= 200 && response.status < 300) {
+            toast.success(responsePayload.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            handleClose();
+            setIngredients([]);
+            event.target.reset();
+        }
+        else {
+            toast.error(responsePayload.error, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
     }
 
     return (
@@ -96,13 +81,9 @@ function AddRecipeModal(props) {
                         id='name'
                         label='Recipe name'
                         placeholder='Insert recipe name...'
-                        multiline
-                        minRows={1}
-                        maxRows={10}
                         size='small'
                         className={styles.textField}
-                        onChange={handleChangeName}
-                        name='name'
+                        name="name"
                     />
                     <FormControl fullWidth className={styles.ingredientFormControl}>
                         <TextField
@@ -124,26 +105,17 @@ function AddRecipeModal(props) {
                             </ol>
                             : null
                     }
-                    <FormControl fullWidth className={styles.instructionFormControl}>
-                        <TextField
-                            id='instruction'
-                            label='Instruction'
-                            size='small'
-                            className={styles.textField}
-                            value={instruction}
-                            onChange={handleChangeInstruction}
-                        />
-                        <Add onClick={handleAddInstruction} className={styles.icon} />
-                    </FormControl>
-                    {
-                        instructions.length > 0 ?
-                            <ol className={styles.listInstructions}>
-                                {
-                                    instructions.map((instruction, index) => <li key={index}>{instruction}</li>)
-                                }
-                            </ol>
-                            : null
-                    }
+                    <TextField
+                        id='instructions'
+                        label='Instructions'
+                        placeholder='Insert instructions...'
+                        multiline
+                        minRows={3}
+                        maxRows={10}
+                        size='small'
+                        className={styles.textField}
+                        name="instructions"
+                    />
                     <TextField
                         id='cook-time'
                         label='Cook time'
@@ -151,8 +123,7 @@ function AddRecipeModal(props) {
                         type='number'
                         defaultValue={1}
                         className={styles.textField}
-                        onChange={handleChangeCookTime}
-                        name='cook-time'
+                        name="cookTime"
                     />
                     <FormControl fullWidth>
                         <InputLabel id="category-label">Recipe category</InputLabel>
@@ -161,10 +132,10 @@ function AddRecipeModal(props) {
                             id="category"
                             value={category}
                             label="Recipe category"
-                            onChange={handleChangeRecipeCategory}
                             className={styles.select}
                             size="small"
-                            name='category'
+                            name="category"
+                            onChange={handleChangeCategory}
                         >
                             <MenuItem value={'Weight loss recipes'}>Weight loss recipes</MenuItem>
                             <MenuItem value={'Muscles building recipes'}>Muscles building recipes</MenuItem>

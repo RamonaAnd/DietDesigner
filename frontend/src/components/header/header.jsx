@@ -5,7 +5,7 @@ function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.logoWrapper}>
-                <Link to={'/home'}>
+                <Link to={'/'}>
                     DietDesigner
                 </Link>
             </div>

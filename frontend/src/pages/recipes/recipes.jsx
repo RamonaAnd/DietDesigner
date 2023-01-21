@@ -27,11 +27,11 @@ function Recipes() {
                 <div className={styles.recipeContainer}>
                     <div>
                         <p className={styles.textRecipe}>
-                            Weight loss recipe
+                            Weight loss recipes
                         </p>
                     </div>
                     <div className={styles.imageWrapper}>
-                        <Link to={'/weight-loss-recipe'}>
+                        <Link to={'/weight-loss-recipes'}>
                             <img src={weightLossImage} alt="Weight loss recipe" />
                         </Link>
                     </div>
@@ -39,11 +39,11 @@ function Recipes() {
                 <div className={styles.recipeContainer}>
                     <div>
                         <p className={styles.textRecipe}>
-                            Muscles building recipe
+                            Muscles building recipes
                         </p>
                     </div>
                     <div className={styles.imageWrapper}>
-                        <Link to={'/muscles-building-recipe'}>
+                        <Link to={'/muscles-building-recipes'}>
                             <img src={musclesBuildingImage} alt="Muscles building recipe" />
                         </Link>
                     </div>
@@ -51,12 +51,12 @@ function Recipes() {
                 <div className={styles.recipeContainer}>
                     <div>
                         <p className={styles.textRecipe}>
-                            Diabetes recipe
+                            Diabetes recipes
                         </p>
                     </div>
                     <div className={styles.imageWrapper}>
-                        <Link to={'/diabetis-recipe'}>
-                            <img src={diabetesImage} alt="Diabetis recipe" />
+                        <Link to={'/diabetes-recipes'}>
+                            <img src={diabetesImage} alt="Diabetes recipe" />
                         </Link>
                     </div>
                 </div>

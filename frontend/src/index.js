@@ -12,10 +12,10 @@ import Recipes from './pages/recipes/recipes';
 import Register from './pages/register/register';
 import WeightLossDiet from './pages/weight-loss-diet/weight-loss-diet';
 import MusclesBuildingDiet from './pages/muscles-building-diet/muscles-building-diet';
-import DiabetisDiet from './pages/diabetes-diet/diabetis-diet';
-import WeightLossRecipe from './pages/weight-loss-recipe/weight-loss-recipe';
-import MusclesBuildingRecipe from './pages/muscles-building-recipe/muscles-building-recipe';
-import DiabetisRecipe from './pages/diabetes-recipe/diabetis-recipe';
+import DiabetesDiet from './pages/diabetes-diet/diabetes-diet';
+import WeightLossRecipes from './pages/weight-loss-recipes/weight-loss-recipes';
+import MusclesBuildingRecipes from './pages/muscles-building-recipes/muscles-building-recipes';
+import DiabetesRecipes from './pages/diabetes-recipes/diabetes-recipes';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 
@@ -24,13 +24,13 @@ root.render(
     <BrowserRouter>
         <Routes>
             <Route path='/' element={<App />}>
-                <Route path='/home' element={<Home />} />
+                <Route path='/' element={<Home />} />
                 <Route path='/weight-loss-diet' element={<WeightLossDiet />} />
                 <Route path='/muscles-building-diet' element={<MusclesBuildingDiet />} />
-                <Route path='/diabetis-diet' element={<DiabetisDiet />} />
-                <Route path='/weight-loss-recipe' element={<WeightLossRecipe />} />
-                <Route path='/muscles-building-recipe' element={<MusclesBuildingRecipe />} />
-                <Route path='/diabetis-recipe' element={<DiabetisRecipe />} />
+                <Route path='/diabetes-diet' element={<DiabetesDiet />} />
+                <Route path='/weight-loss-recipes' element={<WeightLossRecipes />} />
+                <Route path='/muscles-building-recipes' element={<MusclesBuildingRecipes />} />
+                <Route path='/diabetes-recipes' element={<DiabetesRecipes />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/blog' element={<Blog />} />

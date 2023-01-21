@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './muscles-building-diet.module.css';
 
 function MusclesBuilding() {
@@ -34,6 +35,9 @@ function MusclesBuilding() {
                         ideas to help you build muscle mass.
                     </p>
                 </div>
+                <Link to={'/muscles-building-recipes'}>
+                    Go to recipes
+                </Link>
             </section>
         </main>
     )

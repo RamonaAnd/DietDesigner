@@ -4,7 +4,12 @@ const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema(
     {
-        content: {
+        name: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        imageUri: {
             type: String,
             required: true,
             trim: true
@@ -14,18 +19,17 @@ const recipeSchema = new Schema(
                 type: String,
                 trim: true
             }
-        ],
-        instructions: [
-            {
-                type: String,
-                trim: true
-            }
-        ],
+        ],  
+        instructions: {
+            type: String,
+            required: true,
+            trim: true
+        },
         cookTime: {
             type: Number,
             required: true
         },
-        recipeCategory: {
+        category: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'RecipeCategory'
         }

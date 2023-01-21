@@ -39,7 +39,7 @@ function Home() {
                         </p>
                     </div>
                     <div className={styles.imageWrapper}>
-                        <Link to={'/diabetis-diet'}>
+                        <Link to={'/diabetes-diet'}>
                             <img src={diabetesImage} alt="Weight loss diet"/>
                         </Link>
                     </div>
