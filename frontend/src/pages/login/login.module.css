@@ -9,20 +9,16 @@
 .form {
     display: flex;
     flex-direction: column;
-    width: 250px;
+    width: 400px;
     background-color: white;
     padding: 10px 30px 30px 30px;
-    gap: 5px;
+    gap: 15px;
 }
 
 .form h2 {
     margin: 0;
     text-align: center;
     padding: 20px 0 15px;
-}
-
-.form input {
-    padding: 5px;
 }
 
 .form button {

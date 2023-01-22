@@ -4,6 +4,8 @@ import AddPostModal from "../../components/add-post-modal/add-post-modal";
 import styles from './blog.module.css';
 
 function Blog() {
+    const user = JSON.parse(localStorage.getItem('user'));
+
     const [openModal, setOpenModal] = useState(false);
     const [posts, setPosts] = useState([]);
 
@@ -26,11 +28,16 @@ function Blog() {
 
     return (
         <main className={styles.main}>
-            <div>
-                <button onClick={handleClickAddPost} className={styles.addPostButton}>
-                    Add post
-                </button>
-            </div>
+            {
+                user?.userType.name === 'admin' ? 
+                    <div>
+                        <button onClick={handleClickAddPost} className={styles.addPostButton}>
+                            Add post
+                        </button>
+                    </div>
+                : null
+            }
+            
             <section>
                 <h2>Blog posts</h2>
                 <div className={styles.postsContainer}>

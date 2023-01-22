@@ -1,27 +1,58 @@
 const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
+const User = require('../../models/user');
 const UserType = require('../../models/user-type');
 
 const generateAdmins = asyncHandler(async (_, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash('test123', salt);
 
-    const userTypeId = await UserType.findOne({name: 'admin'});
+    let userType = await UserType.findOne({name: 'admin'});
 
-    const userRamona = await userModel.selectOneByEmail('ramona.andrei@stud.fh-campuswien.ac.at');
+    if(!userType)
+    {
+        userType = new UserType({name: 'admin'});
+        await userType.save();
+    }
+
+    const userRamona = await User.findOne({email: 'ramona.andrei@stud.fh-campuswien.ac.at'});
 
     if(!userRamona)
-        await userModel.insert(['Andrei', 'Ramona', 'ramona.andrei@stud.fh-campuswien.ac.at', hashedPassword, userTypeId]);
+    {
+        await new User({
+            firstName: 'Ramona',
+            lastName: 'Andrei',
+            email: 'ramona.andrei@stud.fh-campuswien.ac.at',
+            password: hashedPassword,
+            userType: userType._id
+        }).save()
+    }
 
-    const userLea = await userModel.selectOneByEmail('lea.christa@stud.fh-campuswien.ac.at');
+    const userLea = await User.findOne({email: 'lea.christa@stud.fh-campuswien.ac.at'});
 
     if(!userLea)
-        await userModel.insert(['Lea', 'Christa', 'lea.christa@stud.fh-campuswien.ac.at', hashedPassword, userTypeId]);
-    
-    const userHanaa = await userModel.selectOneByEmail('hanaa.alraei@stud.fh-campuswien.ac.at');
+    {
+        await new User({
+            firstName: 'Christa',
+            lastName: 'Lea',
+            email: 'lea.christa@stud.fh-campuswien.ac.at',
+            password: hashedPassword,
+            userType: userType._id
+        }).save()
+    }
+
+    const userHanaa = await User.findOne({email: 'hanaa.alraei@stud.fh-campuswien.ac.at'});
 
     if(!userHanaa)
-        await userModel.insert(['Alraei', 'Hanaa', 'hanaa.alraei@stud.fh-campuswien.ac.at', hashedPassword, userTypeId]);
+    {
+        await new User({
+            firstName: 'Hanaa',
+            lastName: 'Alraei',
+            email: 'hanaa.alraei@stud.fh-campuswien.ac.at',
+            password: hashedPassword,
+            userType: userType._id
+        }).save()
+    }
 
     res.json("All admins were generated successfully");
 })

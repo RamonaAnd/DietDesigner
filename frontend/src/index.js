@@ -18,6 +18,8 @@ import MusclesBuildingRecipes from './pages/muscles-building-recipes/muscles-bui
 import DiabetesRecipes from './pages/diabetes-recipes/diabetes-recipes';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
+import RecipePage from './pages/recipe-page/recipe-page';
+import Logout from './pages/logout/logout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -33,8 +35,10 @@ root.render(
                 <Route path='/diabetes-recipes' element={<DiabetesRecipes />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/login' element={<Login />} />
+                <Route path='/logout' element={<Logout />} />
                 <Route path='/blog' element={<Blog />} />
                 <Route path='/recipes' element={<Recipes />} />
+                <Route path='/recipes/:id' element={<RecipePage />} />
                 <Route path='/calories' element={<Calories />} />
                 <Route path='/forum' element={<Forum />} />
             </Route>

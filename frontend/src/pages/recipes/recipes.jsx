@@ -8,6 +8,10 @@ import styles from './recipes.module.css';
 
 
 function Recipes() {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    console.log(user);
+
     const [openModal, setOpenModal] = useState(false);
 
     const handleClickAddRecipe = () => {
@@ -20,9 +24,13 @@ function Recipes() {
 
     return (
         <main className={styles.main}>
-            <div className={styles.addRecipeButtonWrapper}>
-                <button onClick={handleClickAddRecipe} className={styles.addRecipeButton}>Add recipe</button>
-            </div>
+            {
+                user?.userType.name === 'admin' ? 
+                    <div className={styles.addRecipeButtonWrapper}>
+                        <button onClick={handleClickAddRecipe} className={styles.addRecipeButton}>Add recipe</button>
+                    </div>
+                : null
+            }
             <section className={styles.section}>
                 <div className={styles.recipeContainer}>
                     <div>

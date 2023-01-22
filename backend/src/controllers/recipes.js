@@ -54,12 +54,16 @@ const create = asyncHandler(async (req, res) => {
     })
 })
 
-const readAll = asyncHandler(async (_req, res) => {
-    res.json(await Recipe.find({}, { __v: 0 }));
+const readById = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    const recipe = await Recipe.findById(id, { __v: 0 }).populate('category');
+
+    res.json(recipe);
 })
 
 const readByCategory = asyncHandler(async (req, res) => {
-    const {category} = req.params;
+    const { category } = req.params;
 
     const recipeCategory = await RecipeCategory.findOne({name: titleCase(category)});
 
@@ -68,5 +72,9 @@ const readByCategory = asyncHandler(async (req, res) => {
     res.json(recipes);
 })
 
+const readAll = asyncHandler(async (_req, res) => {
+    res.json(await Recipe.find({}, { __v: 0 }));
+})
 
-module.exports = { create, readAll, readByCategory };
+
+module.exports = { create, readAll, readById, readByCategory };

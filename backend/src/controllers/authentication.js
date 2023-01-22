@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/user');
+const UserType = require('../models/user-type');
 
 const register = asyncHandler(async (req, res) => {
     const { lastName, firstName, email, password } = req.body;
@@ -25,9 +26,17 @@ const register = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const userTypeId = await userTypeModel.selectOneIdByName('customer');
+    let userType = await UserType.findOne({name: 'customer'});
 
-    await userModel.insert([firstName, lastName, email, hashedPassword, userTypeId]);
+    if(!userType)
+    {
+        userType = new UserType({name: 'customer'});
+        await userType.save();
+    }
+
+    const newUser = new User({firstName, lastName, email, password: hashedPassword, userType: userType._id});
+
+    await newUser.save();
 
     res.json({ message: 'We are very glad to have you on DietDesigner!', severity: 'success' })
 })
@@ -41,10 +50,13 @@ const login = asyncHandler(async (req, res) => {
     if (!password)
         throw new Error('The password is missing from the request body!');
 
-    const user = await userModel.selectOneByEmail(email);
+    const user = await User.findOne({email}).populate('userType');
 
     if (!user)
         throw new Error('You need to register first!');
+
+    if(!await bcrypt.compare(password, user.password))
+        throw new Error('Incorrect password');
 
     res.json({ message: 'You have logged in successfully!', severity: 'success', user: user })
 })

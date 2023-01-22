@@ -29,6 +29,10 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: true
+        },
+        userType: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'UserType'
         }
     }, 
     {

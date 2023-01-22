@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import styles from './header.module.css';
 
 function Header() {
+    const user = JSON.parse(localStorage.getItem('user'));
+
     return (
         <header className={styles.header}>
             <div className={styles.logoWrapper}>
@@ -34,12 +36,22 @@ function Header() {
                 </ul>
             </nav>
             <div className={styles.buttonsContainer}>
-                <Link to={'/register'}>
-                    Register
-                </Link>
-                <Link to={'/login'}>
-                    Login
-                </Link>
+                {
+                    user ? 
+                        <Link to={'/logout'}>
+                            Logout
+                        </Link>
+                    :
+                        <>
+                            <Link to={'/register'}>
+                                Register
+                            </Link>
+                            <Link to={'/login'}>
+                                Login
+                            </Link>
+                        </>
+                }
+                
             </div>
         </header >
     )
